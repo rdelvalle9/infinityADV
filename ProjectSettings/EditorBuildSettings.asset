@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/SCENES/menuPrincipal.unity
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/SCENES/galaxia1.unity
+    guid: 993e7cd31e80bcb4c8019a9374646125
+  - enabled: 1
+    path: Assets/SCENES/crearNivel.unity
+    guid: 17d2581ea49d39b4b8f61e09fc79d2b5
+  - enabled: 1
+    path: Assets/SCENES/opciones.unity
+    guid: c4062420e5c337947bccbc97f5f2c2ee
+  - enabled: 1
+    path: Assets/SCENES/galaxias.unity
+    guid: cec60f874d2abe947a1301b2fa1d825a
+  - enabled: 1
+    path: Assets/SCENES/otros/jefe1.unity
+    guid: cb5a9dbc0ec3cfc4591f223852fdf8f2
+  - enabled: 1
+    path: Assets/SCENES/selecNivel.unity
+    guid: 38de59377855a3d44b3ce00c74d856f2
+  - enabled: 1
+    path: Assets/SCENES/bonusJefe.unity
+    guid: b460c674ebc042347bbd444167cde251
