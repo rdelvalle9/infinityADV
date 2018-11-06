@@ -43,7 +43,6 @@ public class btnGalaxias : MonoBehaviour {
                 PlayerPrefs.SetInt("nivelByGalaxia", galaxia);
                 PlayerPrefs.SetInt("fondoPantalla", galaxia + 1);
                 SceneManager.LoadScene("selecNivel");
-
             });
             gameObject.GetComponentInChildren<Text>().enabled = false;
         }

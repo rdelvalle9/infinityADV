@@ -6,6 +6,7 @@ using System;
 
 public class Svaus : MonoBehaviour
 {
+    #region parametros de la clase
     public static float xInic = -8f;
     public static float yInic = 0f;
     public static float zInic = 0f;
@@ -23,7 +24,7 @@ public class Svaus : MonoBehaviour
     public bool bLanzarPelotas = false;
     public bool bBloque = false;
     public bool bSuperBall = false;
-    public bool bActivarAmetralladora = false; 
+    public bool bActivarAmetralladora = false;
     public bool bAmetralladora = false;
     public GameObject bala;
     public AudioClip sDispararLaser;
@@ -40,7 +41,7 @@ public class Svaus : MonoBehaviour
     public AudioClip sDispararPelotas;
     public bool llegoAlaPos = false;
     private Rigidbody rb;
-    float x=0f;
+    float x = 0f;
 
     public float recargando; //VARIABLE PARA Q NO DISPARE MUCHAS VECES A LA VEZ
     float fy; //
@@ -51,6 +52,7 @@ public class Svaus : MonoBehaviour
     public static Svaus esteObjeto = null;
 
     bool bIniciarVaus = true;
+    #endregion
 
     void Start()
     {
@@ -76,57 +78,7 @@ public class Svaus : MonoBehaviour
         //}
     }
 
-    void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.name == "balaJefe(Clone)") //al chocar con la vaus
-        {
-            //gameObject.SetActive(false);
-        }        
-    }
-
-    void moverHasta()
-    {
-        if (!llegoAlaPos)
-        {
-            x += 1.2f;
-            rb = GetComponent<Rigidbody>();
-            rb.AddForce(x, 0, 0);
-            if (transform.position.x > 0)
-            {
-                rb.isKinematic = true;
-                llegoAlaPos = true;
-                GetComponent<BoxCollider>().isTrigger = false;
-                Slider slider = GameObject.Find("Slider").GetComponent<Slider>();
-                slider.interactable = true;
-                gateDownL.esteObjeto.bAbrirPuertaAbaL = false;
-                }
-        }//TODO ver esto
-        //else//activa el boton para poder hacer pausa
-        //{
-        //    GM.esteObjeto.pausa.GetComponent<Button>().enabled = true;
-        //}
-    }
-
-    // cargarAnimator = carga las variables para las animaciones
-    void cargarAnimator()
-    {
-        animator.SetBool("upExpand", bExpandir);
-        animator.SetBool("bComprimir", bComprimir);
-        animator.SetBool("bAnimLanzarPelotas", bAnimPelotas);
-        animator.SetBool("bActivarLaser", bActivarLaser);
-        animator.SetBool("bIman", bIman);
-        animator.SetBool("bIA", bIAPrincipal);
-        animator.SetBool("bActivarAmetralladora", bActivarAmetralladora);
-    }
-
-    void funcionUpgrades()
-    {
-        laser();
-        ametralladora();
-        lanzarPelotas();
-        seguirPelota();
-    }
-
+    #region funciones de upgrades
     /// <summary>
     /// es cuando la vaus esta en laser y dispara las bolas de energia
     /// </summary>
@@ -146,6 +98,7 @@ public class Svaus : MonoBehaviour
                 Instantiate(bala, posBala, Quaternion.identity);
                 if (sDispararLaser) AudioSource.PlayClipAtPoint(sDispararLaser, transform.position, volumen);
 
+                //TODO arreglar el humo
                 //HUMO
                 //Transform posBocaL = GameObject.Find("bocaL").GetComponent<Transform>();
                 //Transform posBocaR = GameObject.Find("bocaR").GetComponent<Transform>();
@@ -161,9 +114,9 @@ public class Svaus : MonoBehaviour
     {
         if (bAmetralladora == true)
         {
-            if(tiempoAmetralladora > scriptGM.segundos)
+            if (tiempoAmetralladora > scriptGM.segundos)
             {
-                if (scriptGM.segundos > recargando )
+                if (scriptGM.segundos > recargando)
                 {
                     recargando = scriptGM.segundos + .1f;
                     Vector3 posBala = transform.position;
@@ -217,6 +170,52 @@ public class Svaus : MonoBehaviour
             if (sonidoDispPel) AudioSource.PlayClipAtPoint(sonidoDispPel, transform.position, 2);
         }
     }
+    #endregion
+
+    void moverHasta()
+    {
+        if (!llegoAlaPos)
+        {
+            x += 1.2f;
+            rb = GetComponent<Rigidbody>();
+            rb.AddForce(x, 0, 0);
+            if (transform.position.x > 0)
+            {
+                rb.isKinematic = true;
+                llegoAlaPos = true;
+                GetComponent<BoxCollider>().isTrigger = false;
+                Slider slider = GameObject.Find("Slider").GetComponent<Slider>();
+                slider.interactable = true;
+                gateDownL.esteObjeto.bAbrirPuertaAbaL = false;
+                }
+        }//TODO ver esto
+        //else//activa el boton para poder hacer pausa
+        //{
+        //    GM.esteObjeto.pausa.GetComponent<Button>().enabled = true;
+        //}
+    }
+
+    /// <summary>
+    /// carga las variables para las animaciones
+    /// </summary>
+    void cargarAnimator()
+    {
+        animator.SetBool("upExpand", bExpandir);
+        animator.SetBool("bComprimir", bComprimir);
+        animator.SetBool("bAnimLanzarPelotas", bAnimPelotas);
+        animator.SetBool("bActivarLaser", bActivarLaser);
+        animator.SetBool("bIman", bIman);
+        animator.SetBool("bIA", bIAPrincipal);
+        animator.SetBool("bActivarAmetralladora", bActivarAmetralladora);
+    }
+
+    void funcionUpgrades()
+    {
+        laser();
+        ametralladora();
+        lanzarPelotas();
+        seguirPelota();
+    }
 
     /// <summary>
     /// pone a la vaus en el estado normal por si se agarro otro upgrade
@@ -259,6 +258,9 @@ public class Svaus : MonoBehaviour
         slider.maxValue = 3.47f;
     }
 
+    /// <summary>
+    /// es para q la vaus siga a la pelota cuando tiene el upgrade de IA
+    /// </summary>
     void seguirPelota()
     {
         if (bIAPrincipal)
@@ -337,6 +339,9 @@ public class Svaus : MonoBehaviour
         reiniciarFuerzaDeRebote();
     }
 
+    /// <summary>
+    /// es la animacion de cuando entra la vaus por la pared
+    /// </summary>
     public void iniciarVaus()
     {
         //TODO hacer clase efectos visuales y otra sonoros estatico

@@ -126,6 +126,7 @@
     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\RewardBasedVideoAdClient.cs" />
     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\Utils.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\All\Escenas.cs" />
+    <Compile Include="Assets\SCRIPTS\Escenas\All\FondoPantalla.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\All\GameControl.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\All\LanguageManager.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\All\LoadTranslation_3DText.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Assets\SCRIPTS\Escenas\Juego\menuJuego.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\Juego\pared.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\Juego\pausa.cs" />
+    <Compile Include="Assets\SCRIPTS\Escenas\Juego\viewModel.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\Opciones\menuOpciones.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\Principal\AdManager.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\Principal\btnRateUs.cs" />
@@ -162,16 +164,10 @@
     <Compile Include="Assets\SCRIPTS\Escenas\Selec Nivel\Jefe1Muestra.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\Selec Nivel\btnSelecNivel.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\Selec Nivel\menuSelecNivel.cs" />
-    <Compile Include="Assets\SCRIPTS\FondoPantalla.cs" />
     <Compile Include="Assets\SCRIPTS\NotificationCenter.cs" />
-    <Compile Include="Assets\SCRIPTS\SondestBicho.cs" />
-    <Compile Include="Assets\SCRIPTS\admobdemo.cs" />
     <Compile Include="Assets\SCRIPTS\bloques\BloqueNegro.cs" />
     <Compile Include="Assets\SCRIPTS\bloques\bloque.cs" />
     <Compile Include="Assets\SCRIPTS\bloques\bloqueGris.cs" />
-    <Compile Include="Assets\SCRIPTS\cargaEscena.cs" />
-    <Compile Include="Assets\SCRIPTS\crea.cs" />
-    <Compile Include="Assets\SCRIPTS\destroy.cs" />
     <Compile Include="Assets\SCRIPTS\destruirOjb.cs" />
     <Compile Include="Assets\SCRIPTS\explosionChica.cs" />
     <Compile Include="Assets\SCRIPTS\jefes\VidaJefe.cs" />
@@ -184,7 +180,6 @@
     <Compile Include="Assets\SCRIPTS\sonidos.cs" />
     <Compile Include="Assets\SCRIPTS\spawn.cs" />
     <Compile Include="Assets\SCRIPTS\starsMove.cs" />
-    <Compile Include="Assets\SCRIPTS\test1.cs" />
     <Compile Include="Assets\SCRIPTS\upgrades\bloques\CrearCapsula.cs" />
     <Compile Include="Assets\SCRIPTS\upgrades\bloques\crearCapAmetralladora.cs" />
     <Compile Include="Assets\SCRIPTS\upgrades\bloques\crearCapBloque.cs" />
@@ -212,7 +207,6 @@
     <Compile Include="Assets\SCRIPTS\upgrades\capsulas\variables\trigger.cs" />
     <Compile Include="Assets\SCRIPTS\upgrades\contCapsulas.cs" />
     <Compile Include="Assets\SCRIPTS\upgrades\objetosUP\bala.cs" />
-    <Compile Include="Assets\SCRIPTS\viewModel.cs" />
     <Compile Include="Assets\ex\Prefabs\VFX\Explosions\destruirExp.cs" />
   </ItemGroup>
   <ItemGroup>
