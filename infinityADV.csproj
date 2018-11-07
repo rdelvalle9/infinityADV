@@ -13,12 +13,14 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.6.6f2</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -127,11 +129,11 @@
     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\Utils.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\All\Escenas.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\All\FondoPantalla.cs" />
-    <Compile Include="Assets\SCRIPTS\Escenas\All\GameControl.cs" />
-    <Compile Include="Assets\SCRIPTS\Escenas\All\LanguageManager.cs" />
-    <Compile Include="Assets\SCRIPTS\Escenas\All\LoadTranslation_3DText.cs" />
-    <Compile Include="Assets\SCRIPTS\Escenas\All\LoadTranslation_GUIelement.cs" />
-    <Compile Include="Assets\SCRIPTS\Escenas\All\LoadTranslation_GuiText.cs" />
+    <Compile Include="Assets\SCRIPTS\Escenas\All\Traducir txt\GameControl.cs" />
+    <Compile Include="Assets\SCRIPTS\Escenas\All\Traducir txt\LanguageManager.cs" />
+    <Compile Include="Assets\SCRIPTS\Escenas\All\Traducir txt\LoadTranslation_3DText.cs" />
+    <Compile Include="Assets\SCRIPTS\Escenas\All\Traducir txt\LoadTranslation_GUIelement.cs" />
+    <Compile Include="Assets\SCRIPTS\Escenas\All\Traducir txt\LoadTranslation_GuiText.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\All\Musica.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\All\Sonido.cs" />
     <Compile Include="Assets\SCRIPTS\Escenas\All\barraCarga.cs" />

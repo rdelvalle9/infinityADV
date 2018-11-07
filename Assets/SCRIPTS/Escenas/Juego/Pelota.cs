@@ -2,6 +2,7 @@
 
 public class Pelota : MonoBehaviour
 {
+    #region ~atributos~
     float velocInicialPelota = 10;
     private Rigidbody rb;
     public bool ballInPlay;
@@ -29,6 +30,7 @@ public class Pelota : MonoBehaviour
     Vector3[] cuadrante = new Vector3[22];
     float varCantSegundosTrabado = 10;
     int nuevoColor = 0;
+    #endregion
 
     void Start()
     {
@@ -63,30 +65,9 @@ public class Pelota : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.name == "Vaus" && transform.position.y > 0) //al chocar con la vaus
-        {
-            if (vaus.bIman && fx == 0)
-            {
-                tocoVausIman();
-            }
-            else
-            {
-                rebotarPelota();
-            }
-        }
-
-        if (col.gameObject.name == "bicho")
-        {
-            rb.isKinematic = true;
-            rb.isKinematic = false;
-            int numeroRandom = Random.Range(0, 22);
-            rb.AddForce(cuadrante[numeroRandom]);
-            cntSegTrabado = scriptGM.segundos + varCantSegundosTrabado;
-        }
-        if (col.gameObject.name == "pelota")
-        {
-            cntSegTrabado = scriptGM.segundos + varCantSegundosTrabado;
-        }
+        choqueConVaus(col);
+        choqueConBicho(col);
+        choqueConPelota(col);
     }
 
     /// <summary>
@@ -388,6 +369,40 @@ public class Pelota : MonoBehaviour
         }
     }
 
+    private void choqueConVaus(Collision col)
+    {
+        if (col.gameObject.name == "Vaus" && transform.position.y > 0)
+        {
+            if (vaus.bIman && fx == 0)
+            {
+                tocoVausIman();
+            }
+            else
+            {
+                rebotarPelota();
+            }
+        }
+    }
+
+    private void choqueConBicho(Collision col)
+    {
+        if (col.gameObject.name == "bicho")
+        {
+            rb.isKinematic = true;
+            rb.isKinematic = false;
+            int numeroRandom = Random.Range(0, 22);
+            rb.AddForce(cuadrante[numeroRandom]);
+            cntSegTrabado = scriptGM.segundos + varCantSegundosTrabado;
+        }
+    }
+
+    private void choqueConPelota(Collision col)
+    {
+        if (col.gameObject.name == "pelota")
+        {
+            cntSegTrabado = scriptGM.segundos + varCantSegundosTrabado;
+        }
+    }
     //para el upgrade q falta de los colores de la pelota
     /*
     void cambiarColor()

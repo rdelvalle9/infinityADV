@@ -10,13 +10,11 @@ public class btnGalaxias : MonoBehaviour {
     int cantGalaxia = 7; //la cantidad de galaxias para q las muestre bien y los botones tambien
     public float volumen = 1.0f;
 
-    // Use this for initialization
     void Start () {
         mostrarObloquearGalaxia();
         asignarBotones();
     }
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}

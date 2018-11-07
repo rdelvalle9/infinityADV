@@ -6,7 +6,7 @@ using System;
 
 public class Svaus : MonoBehaviour
 {
-    #region parametros de la clase
+    #region ~atributos~
     public static float xInic = -8f;
     public static float yInic = 0f;
     public static float zInic = 0f;

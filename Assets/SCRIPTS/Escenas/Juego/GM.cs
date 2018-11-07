@@ -13,6 +13,7 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class GM : MonoBehaviour
 {
+    #region ~atributos~
     public static GM esteObjeto = null;
     public int vidas;
     public int nivel;
@@ -49,6 +50,7 @@ public class GM : MonoBehaviour
     public GameObject btnOtraVida;
     public GameObject pausa;
     public bool ganaste = false;
+    #endregion
 
     private void Awake()
     {
