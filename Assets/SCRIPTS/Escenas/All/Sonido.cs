@@ -18,11 +18,11 @@ public class Sonido : MonoBehaviour {
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         asignarAudios();
     }
 
-    // Use this for initialization
-    void Start () {
+    void Start (){
         if (esteObjeto == null) { esteObjeto = this; } else if (esteObjeto != this) { Destroy(gameObject); }
 
         int m = PlayerPrefs.GetInt("musica");
@@ -33,8 +33,7 @@ public class Sonido : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update () {
+    void Update (){
         
     }
 
@@ -47,6 +46,8 @@ public class Sonido : MonoBehaviour {
         menuPrincipal = (AudioClip)Resources.Load("musica/menuPrincipal");
 
         choqueAbloqueNegro = (AudioClip)Resources.Load("sonido/bloques/bloqueNegro");
+
+        //expVaus = (AudioClip)Resources.Load("sonido//bloqueNegro");
     }
 
     public void sonidoBtnAceptar()
@@ -72,5 +73,10 @@ public class Sonido : MonoBehaviour {
     public void sonidoChoqueAbloqueNegro()
     {
         if (choqueAbloqueNegro) AudioSource.PlayClipAtPoint(choqueAbloqueNegro, transform.position, volumen);
+    }
+
+    public void vausSonidoDeSuExplosion()
+    {
+        if (expVaus) AudioSource.PlayClipAtPoint(expVaus, transform.position, volumen);
     }
 }

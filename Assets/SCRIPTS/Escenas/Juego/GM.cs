@@ -7,9 +7,13 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
-//script q maneja la mayor parte del juego
+
+/// <summary>
+/// script q maneja la mayor parte del juego
+/// </summary>
 public class GM : MonoBehaviour
 {
+    #region ~atributos~
     public static GM esteObjeto = null;
     public int vidas;
     public int nivel;
@@ -46,6 +50,7 @@ public class GM : MonoBehaviour
     public GameObject btnOtraVida;
     public GameObject pausa;
     public bool ganaste = false;
+    #endregion
 
     private void Awake()
     {
@@ -54,33 +59,9 @@ public class GM : MonoBehaviour
 
     void Start()
     {
-        this.mostrarPublicidad(); //publicidad
-        //cargarValores(); //carga los valores de x ej si se va a escuchar la musica
-        this.nivel = PlayerPrefs.GetInt("nivel");   //traigo de disco el nivel con el que va a empezar el juego
-        int nivelContinuar = PlayerPrefs.GetInt("continuarNivel");
-        TextMesh txtNivel = GameObject.Find("txtNivel").GetComponent<TextMesh>();
-        txtNivel.text = "level=" + nivel.ToString();  //solo es para mostrar el nivel
-        this.vidas = PlayerPrefs.GetInt("vidas");    //asigno la cantidad de vidas
-        this.bloques = 40;   //pongo un valor falso para que no de error el juego
-        this.cargarVidas();
-        Time.timeScale = 1f;
-        this.instanciador(); //crea objetos
-        if (nivelContinuar != 0 && nivel == 0)//si el nivel es distinto de cero significa que el usuario puso GUARDAR
-        {
-            crearNiveles scriptCrearNiveles = GameObject.Find("crear").GetComponent<crearNiveles>();
-            vidas = PlayerPrefs.GetInt("vidasGuardadas");
-            scriptCrearNiveles.continuarJuego();
-            nivel = nivelContinuar;
-            txtNivel.text = "level=" + nivel.ToString();
-            PlayerPrefs.SetInt("continuarNivel", 0);
-        }
-        else if (PlayerPrefs.GetInt("esNivelJefe") == 0)
-        {
-            this.cargarProximoNivel();
-        }
-        PlayerPrefs.SetInt("esNivelJefe", 0);//asi ya no va a volver a ser nivel jefe
-
+        prepararEscena();
     }
+
     /// <summary>
     /// instanciador = instancia la vaus y la pelota
     /// </summary>
@@ -111,8 +92,9 @@ public class GM : MonoBehaviour
         segundos += Time.deltaTime;
     }
 
-    /* checkGameOver = verica si se acabo el juego por terminacion de bloques
-       o de vidas */
+    /// <summary>
+    /// verica si se acabo el juego por terminacion de bloques
+    /// </summary>
     void checkGameOver()
     {
         juegoNormalBloques();
@@ -147,13 +129,12 @@ public class GM : MonoBehaviour
 
     void cargarVidas()
     {
-        if (PlayerPrefs.HasKey("vidas"))///////////////////////
+        if (PlayerPrefs.HasKey("vidas"))
         {
             vidas = PlayerPrefs.GetInt("vidas");
         }
     }
 
-    /* mostrarPopUp = muestra el pop up    */
     public void mostrarPopUp(bool p)
     {
         //reiniciar la vista de la camara
@@ -232,6 +213,42 @@ public class GM : MonoBehaviour
     public void mostrarPublicidad()
     {
         AdManager.esteObjeto.mostrarInstersticial();
+    }
+
+    private void prepararEscena()
+    {
+        this.mostrarPublicidad();//TODO ver xq esta comentado lo de cargarValores()
+        this.cargarValores(); //carga los valores de x ej si se va a escuchar la musica
+
+        this.nivel = PlayerPrefs.GetInt("nivel");   //traigo de disco el nivel con el que va a empezar el juego        
+        this.vidas = PlayerPrefs.GetInt("vidas");    //asigno la cantidad de vidas
+        this.bloques = 40;   //pongo un valor falso para que no de error el juego
+        this.cargarVidas();
+        Time.timeScale = 1f;
+        this.instanciador(); //crea objetos
+
+        this.construirNivelOCargarSiguiente();
+    }
+
+    private void construirNivelOCargarSiguiente()
+    {
+        int nivelContinuar = PlayerPrefs.GetInt("continuarNivel");
+        TextMesh txtNivel = GameObject.Find("txtNivel").GetComponent<TextMesh>();
+        txtNivel.text = "level=" + nivel.ToString();  //solo es para mostrar el nivel
+        if (nivelContinuar != 0 && nivel == 0)//si el nivel es distinto de cero significa que el usuario puso GUARDAR
+        {
+            crearNiveles scriptCrearNiveles = GameObject.Find("crear").GetComponent<crearNiveles>();
+            vidas = PlayerPrefs.GetInt("vidasGuardadas");
+            scriptCrearNiveles.continuarJuego();
+            nivel = nivelContinuar;
+            txtNivel.text = "level=" + nivel.ToString();
+            PlayerPrefs.SetInt("continuarNivel", 0);
+        }
+        else if (PlayerPrefs.GetInt("esNivelJefe") == 0)
+        {
+            this.cargarProximoNivel();
+        }
+        PlayerPrefs.SetInt("esNivelJefe", 0);//asi ya no va a volver a ser nivel jefe
     }
 
 }

@@ -1,12 +1,5 @@
-﻿//using admob;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using GoogleMobileAds.Api;
@@ -16,43 +9,13 @@ public class menuJuego : MonoBehaviour
     bool fpausa = false;
     private RewardBasedVideoAd rewardBasedVideoAd;
 
-    [Serializable]
-    public class Bloque
-    {
-        byte Pos;
-        byte Color;
-
-        public byte pos
-        {
-            get
-            {
-                return Pos;
-            }
-            set
-            {
-                Pos = value;
-            }
-        }
-
-        public byte color
-        {
-            get
-            {
-                return Color;
-            }
-            set
-            {
-                Color = value;
-            }
-        }
-    }
-
     private void Awake()
     {
         rewardBasedVideoAd = RewardBasedVideoAd.Instance;
 
         rewardBasedVideoAd.OnAdRewarded += HandleOnAdRewarded;
     }
+
     public void PonerPausa()
     {
         if (fpausa == false)
@@ -80,7 +43,9 @@ public class menuJuego : MonoBehaviour
         SceneManager.LoadScene("menuPrincipal");
     }
 
-    // guardarJuego = guarda la partida en el disco para poder continuarla despues
+    /// <summary>
+    /// guarda la partida en el disco para poder continuarla despues
+    /// </summary>
     public void guardarJuego()
     {
         Pelota pelota = GameObject.Find("pelota").GetComponent<Pelota>();//busca el objeto 
@@ -115,7 +80,9 @@ public class menuJuego : MonoBehaviour
         }
     }
 
-    // pelotaLenta = reinicia la velocidad minima a la pelota
+    /// <summary>
+    /// reinicia la velocidad minima a la pelota
+    /// </summary>
     public void pelotaLenta()
     {
         PlayerPrefs.SetInt("velocidadPelota", 1);

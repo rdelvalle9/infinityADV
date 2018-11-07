@@ -2,6 +2,7 @@
 
 public class Pelota : MonoBehaviour
 {
+    #region ~atributos~
     float velocInicialPelota = 10;
     private Rigidbody rb;
     public bool ballInPlay;
@@ -9,7 +10,6 @@ public class Pelota : MonoBehaviour
     static float yInic = 0.454f;
     static float zInic = 0;
     public Vector3 playerPos;
-    public AudioClip sonido = null;
     public float volumen = 1.0f;
     protected Transform posicion = null;
     private GM scriptGM;
@@ -30,6 +30,7 @@ public class Pelota : MonoBehaviour
     Vector3[] cuadrante = new Vector3[22];
     float varCantSegundosTrabado = 10;
     int nuevoColor = 0;
+    #endregion
 
     void Start()
     {
@@ -54,7 +55,7 @@ public class Pelota : MonoBehaviour
         reiniciarFX();
         lanzarPelota();
         pelotaPerdida();
-        cambiarColor();
+        //cambiarColor();
 
         if (ballInPlay == false)
         {
@@ -64,33 +65,14 @@ public class Pelota : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.name == "Vaus" && transform.position.y > 0) //al chocar con la vaus
-        {
-            if (vaus.bIman && fx == 0)
-            {
-                tocoVausIman();
-            }
-            else
-            {
-                rebotarPelota();
-            }
-        }
-
-        if (col.gameObject.name == "bicho")
-        {
-            rb.isKinematic = true;
-            rb.isKinematic = false;
-            int numeroRandom = Random.Range(0, 22);
-            rb.AddForce(cuadrante[numeroRandom]);
-            cntSegTrabado = scriptGM.segundos + varCantSegundosTrabado;
-        }
-        if (col.gameObject.name == "pelota")
-        {
-            cntSegTrabado = scriptGM.segundos + varCantSegundosTrabado;
-        }
+        choqueConVaus(col);
+        choqueConBicho(col);
+        choqueConPelota(col);
     }
 
-    // acelerarPelota = le va dando cada vez mas fuerza a la vaus para acelerar la pelota cuando rebote
+    /// <summary>
+    /// le va dando cada vez mas fuerza a la vaus para acelerar la pelota cuando rebote
+    /// </summary>
     void acelerarPelota()
     {
         //normal a los 2 += 1.5f
@@ -140,7 +122,9 @@ public class Pelota : MonoBehaviour
         }
     }
 
-    // pelotaPerdida = funcion de cuando se cae la pelota
+    /// <summary>
+    /// funcion de cuando se cae la pelota
+    /// </summary>
     void pelotaPerdida()
     {
         if (transform.position.y < -4) //AL PERDER UNA PELOTA
@@ -164,20 +148,24 @@ public class Pelota : MonoBehaviour
                 AudioSource camara = GameObject.Find("Main Camera").GetComponent<AudioSource>();
                 camara.pitch = 1f; //la velocidad de la musica vuelve a la normalidad
                 Instantiate(GM.esteObjeto.explosion, Svaus.esteObjeto.transform.position, Quaternion.identity);
-                Svaus.esteObjeto.reproducirSonidoExplosion();
+                Sonido.esteObjeto.vausSonidoDeSuExplosion();
                 Svaus.esteObjeto.iniciarVaus();
             }
         }
     }
 
-    // prepararPelota = prepara la pelota para ser lanzada
+    /// <summary>
+    /// prepara la pelota para ser lanzada
+    /// </summary>
     public void posicionarPelota()
     {
         ballInPlay = false;
         rb.isKinematic = true;
     }
 
-    // seguirVaus = sigue a la vaus antes de ser lanzada
+    /// <summary>
+    /// sigue a la vaus antes de ser lanzada
+    /// </summary>
     public void seguirVaus()
     {
         if (vaus.bIman == false)
@@ -198,7 +186,9 @@ public class Pelota : MonoBehaviour
         }
     }
 
-    // rebotarPelota = funcion de rebote cuando toca la vaus
+    /// <summary>
+    /// funcion de rebote cuando toca la vaus
+    /// </summary>
     public void rebotarPelota()
     {
         AudioSource camara = GameObject.Find("Main Camera").GetComponent<AudioSource>();
@@ -213,8 +203,6 @@ public class Pelota : MonoBehaviour
 
         acelerarPelota();
 
-        //Debug.Log("fuerza en X=" + vaus.fuerzaX);
-        //Debug.Log("fuerza en Y=" + vaus.fuerzaY);
         if (pelotaX >= vausX)
         {
             float fx = 0;
@@ -243,7 +231,9 @@ public class Pelota : MonoBehaviour
         }
     }
 
-    // tocoVausIman = cuando toca la vaus iman pone un contador para q rebote despues
+    /// <summary>
+    /// cuando toca a la vaus iman pone un contador para q rebote despues
+    /// </summary>
     public void tocoVausIman()
     {
         segImanLanzar = scriptGM.segundos + 1f;
@@ -251,8 +241,6 @@ public class Pelota : MonoBehaviour
         cntSegTrabado = scriptGM.segundos + 7;
         ballInPlay = false;
         rb.isKinematic = true;
-        //ballInPlay = true;
-        //rb.isKinematic = false;
         rb = GetComponent<Rigidbody>();
         float pelotaX = transform.position.x;
         float vausX = vaus.transform.position.x;
@@ -260,8 +248,7 @@ public class Pelota : MonoBehaviour
         acelerarPelota();
 
         distDeVaus = pelotaX - vausX;
-        //Debug.Log("fuerza en X=" + vaus.fuerzaX);
-        //Debug.Log("fuerza en Y=" + vaus.fuerzaY);
+      
         if (pelotaX >= vausX)
         {
             float porcentaje = 0;
@@ -284,8 +271,9 @@ public class Pelota : MonoBehaviour
         }
     }
 
-    // pelotaTrabada =  si la pelota esta sin tocar la vaus por 7 segundos le da una 
-    // fuerza aleatoria para destrabarla
+    /// <summary>
+    /// si la pelota esta sin tocar la vaus por 7 segundos le da fuerza aleatoria para destrabarla
+    /// </summary>
     public void pelotaTrabada()
     {
         int numeroRandom;
@@ -304,8 +292,9 @@ public class Pelota : MonoBehaviour
         }
     }
 
-    // pelotaTotalmenteTrabada = aveces la pelota choca y queda estatica en el lugar
-    // esta funcion hace q se mueva enseguida
+    /// <summary>
+    /// aveces la pelota choca y queda estatica en el lugar esta funcion hace q se mueva enseguida
+    /// </summary>
     public void pelotaTotalmenteTrabada()//pelota loca upgrade
     {
         int numeroRandom;
@@ -334,7 +323,9 @@ public class Pelota : MonoBehaviour
         }
     }
 
-    // cargarVecCuadrantes = los movimientos q hace la pelota al chocar con un bicho
+    /// <summary>
+    /// los movimientos q hace la pelota al chocar con un bicho
+    /// </summary>
     void cargarVecCuadrantes()
     {
         for (int i = 0; i < 22; i++)
@@ -367,7 +358,9 @@ public class Pelota : MonoBehaviour
         cuadrante[21] = new Vector3(-250f + f, -200f + f, 0);
     }
 
-    //reiniciarFX = para solucion el problema q aveces funciona mal el iman
+    /// <summary>
+    /// para solucion el problema q aveces funciona mal el iman
+    /// </summary>
     void reiniciarFX()
     {
         if (vaus.bIman == false)
@@ -376,6 +369,42 @@ public class Pelota : MonoBehaviour
         }
     }
 
+    private void choqueConVaus(Collision col)
+    {
+        if (col.gameObject.name == "Vaus" && transform.position.y > 0)
+        {
+            if (vaus.bIman && fx == 0)
+            {
+                tocoVausIman();
+            }
+            else
+            {
+                rebotarPelota();
+            }
+        }
+    }
+
+    private void choqueConBicho(Collision col)
+    {
+        if (col.gameObject.name == "bicho")
+        {
+            rb.isKinematic = true;
+            rb.isKinematic = false;
+            int numeroRandom = Random.Range(0, 22);
+            rb.AddForce(cuadrante[numeroRandom]);
+            cntSegTrabado = scriptGM.segundos + varCantSegundosTrabado;
+        }
+    }
+
+    private void choqueConPelota(Collision col)
+    {
+        if (col.gameObject.name == "pelota")
+        {
+            cntSegTrabado = scriptGM.segundos + varCantSegundosTrabado;
+        }
+    }
+    //para el upgrade q falta de los colores de la pelota
+    /*
     void cambiarColor()
     {
         if (color && GM.esteObjeto.segundos < tiempoDeUpGrade)
@@ -476,24 +505,5 @@ public class Pelota : MonoBehaviour
             Renderer colorOriginal = GameObject.Find("pelota").GetComponent<Renderer>();
             colorOriginal.material = crearNiveles.esteObjeto.blanco;
         }
-    }
+    }*/
 }
-
-#region old
-/*
-if (GM.instance.secondsCounter > tiempoBSlider && bSlider)
-{
-    bIA = true;
-    bSlider = false;
-}*/
-
-
-/*
-public void imprimirPos()
-{
-    TextMesh posX = GameObject.Find("txtPosX").GetComponent<TextMesh>();
-    TextMesh posY = GameObject.Find("txtPosY").GetComponent<TextMesh>();
-    posX.text = transform.position.x.ToString();
-    posY.text = transform.position.y.ToString();
-}*/
-#endregion
