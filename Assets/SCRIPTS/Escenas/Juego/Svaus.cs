@@ -360,7 +360,7 @@ public class Svaus : MonoBehaviour
 
     public void reproducirSonidoExplosion()
     {
-        if (sDispararLaser) AudioSource.PlayClipAtPoint(sonidoExp, transform.position, 2);
+        Sonido.esteObjeto.vausSonidoDeSuExplosion();
     }
 }
 
