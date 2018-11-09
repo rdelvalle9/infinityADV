@@ -174,7 +174,7 @@ public class Svaus : MonoBehaviour
 
     void moverHasta()
     {
-        if (!llegoAlaPos)
+        if (!llegoAlaPos && Time.timeScale != 0)
         {
             x += 1.2f;
             rb = GetComponent<Rigidbody>();
@@ -351,8 +351,7 @@ public class Svaus : MonoBehaviour
         Pelota scriptPelota = GameObject.Find("pelota").GetComponent<Pelota>();
         transform.position = vPosIni;
         x = transform.position.x;
-        Slider slider = GameObject.Find("Slider").GetComponent<Slider>();
-        slider.interactable = false;
+        Scanvas.esteObjeto.slider.GetComponent<Slider>().interactable = false;
         rb.isKinematic = false;
         llegoAlaPos = false;
         GetComponent<BoxCollider>().isTrigger = true;

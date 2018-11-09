@@ -162,10 +162,17 @@ public class menuJuego : MonoBehaviour
         GM.esteObjeto.btnOtraVida.SetActive(false);//TODO pasar todo esto a un solo gameobject boton
         GM.esteObjeto.btnOtraVida.SetActive(false);
 
-        //AdManager.esteObjeto.mostrarRewardedVideo();
+        GameObject.Find("txtPerdiste").GetComponent<Text>().text = "perdiste...";
+        GameObject.Find("btnPUReiniciar").GetComponent<Image>().enabled = true;
+    
+        GameObject.Find("btnPUSiguiente").GetComponent<Image>().enabled = true;
+            
+        GameObject.Find("txtGanaste").GetComponent<Text>().text = "ganaste!!!";
+
+        AdManager.esteObjeto.mostrarRewardedVideo();
     }
 
-    public void HandleOnAdRewarded(object sender, Reward args)
+public void HandleOnAdRewarded(object sender, Reward args)
     {
         //string txt = "Obtuviste 1 vida!" + args.Amount + args.Type;
         GM.esteObjeto.vidas = Int32.Parse(args.Amount.ToString()); //le doy la vida q gano
