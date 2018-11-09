@@ -3589,7 +3589,7 @@ MonoBehaviour:
   pu: {fileID: 133898409}
   puIconoVaus: {fileID: 2007730404}
   btnOtraVida: {fileID: 357329801}
-  pausa: {fileID: 0}
+  pausa: {fileID: 670335670}
   ganaste: 0
 --- !u!1 &884825759
 GameObject:
